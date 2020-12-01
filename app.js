@@ -31,7 +31,7 @@ button.insertAdjacentElement('beforebegin', p)
 
 const quizAnswers = ['B', 'A', 'A', 'B']
 
-form.addEventListener('submit', event => {
+const showUserScore = event => {
   event.preventDefault()
 
   let score = 0
@@ -43,11 +43,16 @@ form.addEventListener('submit', event => {
     event.target.inputQuestion4.value
   ]
 
-  userAnswers.forEach((answer, index) => {
+  const userScore = (answer, index) => {
     if (answer === quizAnswers[index]) {
       score += 25
     }
-  })
+    return score
+  }
+
+  userAnswers.forEach(userScore)
 
   return p.textContent = `Você acertou ${score}% do Quiz`
-})
+}
+
+form.addEventListener('submit', showUserScore)
