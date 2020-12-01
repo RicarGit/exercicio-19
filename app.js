@@ -29,7 +29,7 @@ const p = document.createElement('p')
 p.setAttribute('class', 'text-info')
 button.insertAdjacentElement('beforebegin', p)
 
-const quizAnswers = ['B', 'A', 'A', 'B']
+const quizAnswers = ['C', 'A', 'B', 'D']
 
 const showUserScore = event => {
   event.preventDefault()
