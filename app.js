@@ -23,18 +23,18 @@ Ps: se você não conseguiu fazer tudo o que foi pedido acima, abra a issue mesm
 */
 
 const form = document.querySelector('.quiz-form')
-const button = document.querySelector('button')
+const scoreContainer = document.querySelector('.score-container')
+const scoreResultDiv = document.querySelector('.score-result')
 
 const p = document.createElement('p')
 p.setAttribute('class', 'text-info')
-button.insertAdjacentElement('beforebegin', p)
 
 const quizAnswers = ['C', 'A', 'B', 'D']
 
+let score = 0
+
 const showUserScore = event => {
   event.preventDefault()
-
-  let score = 0
 
   const userAnswers = [
     event.target.inputQuestion1.value,
@@ -52,7 +52,21 @@ const showUserScore = event => {
 
   userAnswers.forEach(userScore)
 
-  return p.textContent = `Você acertou ${score}% do Quiz`
+  let counterScore = 0
+
+  timer = setInterval(() => {
+
+    if (counterScore === score) {
+      clearInterval(timer)
+      score = 0
+    }
+
+    scoreResultDiv.textContent = `Você acertou ${counterScore}% do quiz!`
+    counterScore++
+  }, 15)
+
+  scoreContainer.classList.remove('d-none')
+  scrollTo(0, 0)
 }
 
 form.addEventListener('submit', showUserScore)
