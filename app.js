@@ -33,40 +33,56 @@ const quizAnswers = ['C', 'A', 'B', 'D']
 
 let score = 0
 
-const showUserScore = event => {
-  event.preventDefault()
+getUserAnswers = () => {
+  const userAnswers = []
 
-  const userAnswers = [
-    event.target.inputQuestion1.value,
-    event.target.inputQuestion2.value,
-    event.target.inputQuestion3.value,
-    event.target.inputQuestion4.value
-  ]
+  quizAnswers.forEach((_, index) => {
+    userAnswers.push(form[`inputQuestion${index + 1}`].value)
+  })
 
-  const userScore = (answer, index) => {
-    if (answer === quizAnswers[index]) {
+  return userAnswers
+}
+
+const calculateUserScore = userAnswers => {
+  userAnswers.forEach((userAnswer, index) => {
+    const isUserAnswerCorrect = userAnswer === quizAnswers[index]
+    if (isUserAnswerCorrect) {
       score += 25
     }
-    return score
-  }
+  })
+}
 
-  userAnswers.forEach(userScore)
+const showFinalScore = () => {
+  scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  })
+  scoreContainer.classList.remove('d-none')
+}
 
-  let counterScore = 0
+const animateScoreResult = () => {
+  let counter = 0
 
-  timer = setInterval(() => {
+  const timer = setInterval(() => {
 
-    if (counterScore === score) {
+    if (counter === score) {
       clearInterval(timer)
       score = 0
     }
 
-    scoreResultDiv.textContent = `Você acertou ${counterScore}% do quiz!`
-    counterScore++
-  }, 15)
-
-  scoreContainer.classList.remove('d-none')
-  scrollTo(0, 0)
+    scoreResultDiv.textContent = `Você acertou ${counter++}% do quiz!`
+  }, 13)
 }
 
-form.addEventListener('submit', showUserScore)
+const showQuizResult = event => {
+  event.preventDefault()
+
+  const userAnswers = getUserAnswers()
+
+  calculateUserScore(userAnswers)
+  showFinalScore()
+  animateScoreResult()
+}
+
+form.addEventListener('submit', showQuizResult)
