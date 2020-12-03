@@ -26,9 +26,6 @@ const form = document.querySelector('.quiz-form')
 const scoreContainer = document.querySelector('.score-container')
 const scoreResultDiv = document.querySelector('.score-result')
 
-const p = document.createElement('p')
-p.setAttribute('class', 'text-info')
-
 const quizAnswers = ['C', 'A', 'B', 'D']
 
 let score = 0
