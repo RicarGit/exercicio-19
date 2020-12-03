@@ -30,19 +30,14 @@ const quizAnswers = ['C', 'A', 'B', 'D']
 
 let score = 0
 
-getUserAnswers = () => {
-  const userAnswers = []
-
-  quizAnswers.forEach((_, index) => {
-    userAnswers.push(form[`inputQuestion${index + 1}`].value)
-  })
-
-  return userAnswers
-}
+const getUserAnswers = () =>
+  quizAnswers.map((_, index) =>
+    form[`inputQuestion${index + 1}`].value)
 
 const calculateUserScore = userAnswers => {
   userAnswers.forEach((userAnswer, index) => {
     const isUserAnswerCorrect = userAnswer === quizAnswers[index]
+
     if (isUserAnswerCorrect) {
       score += 25
     }
@@ -62,7 +57,6 @@ const animateScoreResult = () => {
   let counter = 0
 
   const timer = setInterval(() => {
-
     if (counter === score) {
       clearInterval(timer)
       score = 0
